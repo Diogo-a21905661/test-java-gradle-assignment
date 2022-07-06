@@ -1,0 +1,22 @@
+plugins {
+    id 'java'
+}
+
+group 'pt.ulusofona.deisi.dropProject'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib"
+    implementation "org.jetbrains.kotlin:kotlin-test-junit"
+    implementation "junit:junit"
+}
+
+tasks.test {
+    useJUnitPlatform()
+}
