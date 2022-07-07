@@ -5,18 +5,31 @@ plugins {
 group 'pt.ulusofona.deisi.dropProject'
 version '1.0-SNAPSHOT'
 
-sourceCompatibility = 1.8
-
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib"
-    implementation "org.jetbrains.kotlin:kotlin-test-junit"
-    implementation "junit:junit"
+    testImplementation("junit:junit:4.13")
 }
 
 tasks.test {
-    useJUnitPlatform()
+    // Discover and execute JUnit4-based tests
+    useJUnit()
+
+    // show standard out and standard error of the test JVM(s) on the console
+    testLogging.showStandardStreams = true
+
+    // listen to events in the test execution lifecycle
+    beforeTest { descriptor ->
+        logger.lifecycle("Running test: " + descriptor)
+    }
+
+    // Skip test failures
+    ignoreFailures = true
+
+    // listen to standard out and standard error of the test JVM(s)
+    onOutput { descriptor, event ->
+        logger.lifecycle("Test: " + descriptor + " produced standard out/err: " + event.message )
+    }
 }
